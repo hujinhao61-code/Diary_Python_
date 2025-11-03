@@ -17,12 +17,12 @@ I was just using "class" and "__main__" in python for the first time, I will sha
 
 Key words:
 
-self.connection = pymysql.connect(**self.config)
+    self.connection = pymysql.connect(**self.config)
 
-with self.connection.cursor() as cursor:
+    with self.connection.cursor() as cursor:
 
-    cursor.execute("SELECT kg_id, kg_code FROM xj_kg_space_info_tb WHERE kg_name = %s", (kg_name,))
+        cursor.execute("SELECT kg_id, kg_code FROM xj_kg_space_info_tb WHERE kg_name = %s", (kg_name,))
     
-    kg_query_result = cursor.fetchall()  # kg查询结果
+        kg_query_result = cursor.fetchall()  # kg查询结果
     
 (I will add the "Key words" part for my memory in learning python, wwwwww)
