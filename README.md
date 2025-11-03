@@ -23,6 +23,6 @@ Key words:
 
         cursor.execute("SELECT kg_id, kg_code FROM xj_kg_space_info_tb WHERE kg_name = %s", (kg_name,))
     
-        kg_query_result = cursor.fetchall()  # kg查询结果
+        kg_query_result = cursor.fetchall()  # kg query resutl
     
 (I will add the "Key words" part for my memory in learning python, wwwwww)
