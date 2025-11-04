@@ -82,3 +82,81 @@ class PymysqlTest:
         except Exception as category_query_e:  # category_code query error
             logger.error(f"Error querying category_code（{kg_id}）: {category_query_e}")
             return [], round(time.time() - start_category_query_time, 3)
+            
+# 1104 Tue continue reviewing
+    
+    # Print results and total time
+    def _print_results(self, kg_name, kg_results, kg_query_time, category_results, category_query_time):
+        logger.info(f"Start processing kg_name: {kg_name}")
+        logger.info(f"kg_info query time: {kg_query_time}seconds")
+        if kg_results:
+            logger.info(f"Results for kg_name '{kg_name}'are as follows")
+            for i, kg_result in enumerate(kg_results, start=1):
+                kg_id, kg_code = kg_result
+                logger.info(f"kg_id of the {i}th result is {kg_id}, kg_code is {kg_code}")
+                logger.info(f"  -> category_code query time:{category_query_time}seconds")
+                logger.info("\n")
+                # Call the get_category_codes method within the class
+                # category_results = self._get_category_code(kg_id)
+                if category_results:
+                    # print(f"Result for kg_id = '{kg_id}' are as follows")
+                    for j, category_result in enumerate(category_results, start=1):
+                        category_code = category_result[0]
+                        logger.info(f"category_code of the {j}th result is {category_code}")
+        else:  # Added else clause, in case incorrect input name leads to no results
+            logger.error(f"kg_name:{kg_name} has no query results, please check for spelling errors")
+        logger.info("============\n")
+
+    # New method to replace _run()
+    def _process_single_kg(self, kg_name):
+        total_start_time = time.time()  # Total start time for single task
+        result_dict = {  # Use result_dict to prevent TypeError: 'NoneType' object is not subscriptable
+            "kg_name": kg_name,
+            "success": False,
+            "total_time": 0,
+            "kg_query_time": 0,
+            "category_query_time": 0,
+            "error": "",  # Store error information, errors occur frequently
+            "have_kg_result": False  # Flag indicating if there are kg query results
+        }
+        if not self._connect():
+            result_dict["error"] = "Database connection failed (timeout or incorrect address)"
+            result_dict["total_time"] = round(time.time() - total_start_time, 3)
+            return result_dict
+        try:
+            # Use _get_kg_info function
+            kg_results, kg_query_time = self._get_kg_info(kg_name)  # Inputs for _print_results function
+            result_dict["kg_query_time"] = kg_query_time  # Record kg_query time
+            category_results, category_query_time = [], 0  # Temporarily empty, will query category_code if kg_id exists
+            # Flag indicating if there are kg query results
+            if kg_results:
+                result_dict["have_kg_result"] = True
+            else:
+                result_dict["have_kg_result"] = False
+            # Use _get_category_code function
+            if kg_results:
+                # There seems to be an issue, can be replaced with "for i, kg_result in enumerate(kg_results, start=1)"
+                first_kg_id = kg_results[0][0]
+                category_results, category_query_time = self._get_category_code(first_kg_id)
+            # Use _print_results function
+            result_dict["category_query_time"] = category_query_time  # Record category_query time
+            self._print_results(kg_name, kg_results, kg_query_time, category_results, category_query_time)
+            result_dict["success"] = True
+            result_dict["total_time"] = round(time.time() - total_start_time, 3)
+            return result_dict
+        except Exception as progress_e:
+            result_dict["error"] = str(progress_e)
+            result_dict["total_time"] = round(time.time() - total_start_time, 3)
+            return result_dict
+        finally:
+            self._close()  # Close connection after single task completes to prevent streaming issues
+
+        # Close connection
+    def _close(self):
+        if self.connection:
+            self.connection.close()
+            # print("Single task database connection closed\n")  # Too many prints in concurrent mode, can be commented out
+
+    # 1104 Key words:
+    # for i, kg_result in enumerate(kg_results, start=1):
+    # result_dict["total_time"] = round(time.time() - total_start_time, 3)
