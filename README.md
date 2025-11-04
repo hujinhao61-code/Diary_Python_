@@ -26,3 +26,15 @@ Key words:
         kg_query_result = cursor.fetchall()  # kg query resutl
     
 (I will add the "Key words" part for my memory in learning python, wwwwww)
+
+2025 1104
+
+The code in 3rd day was definitely easiest part. Maybe tomorrow we can finish the test python.
+
+Key words:
+
+    for i, kg_result in enumerate(kg_results, start=1):
+    
+    result_dict["total_time"] = round(time.time() - total_start_time, 3)
+
+Thanks for watching~
