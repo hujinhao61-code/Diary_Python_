@@ -31,6 +31,13 @@ def init_logger():
 
     return logger
 
+# 1031 Key words
+# log_filename = time.strftime("%Y-%m-%d_%H-%M-%S") + "_test.log"
+# logger = logging.getLogger()
+# logger.setLevel(logging.INFO)  # DEBUG < INFO < WARNING < ERROR < CRITICAL
+# if logger.handlers:
+#     return logger
+
 logger = init_logger()
 
 # 1103 Mon continue reviewing
@@ -82,7 +89,13 @@ class PymysqlTest:
         except Exception as category_query_e:  # category_code query error
             logger.error(f"Error querying category_code（{kg_id}）: {category_query_e}")
             return [], round(time.time() - start_category_query_time, 3)
-            
+
+# 1103 Key words:
+# self.connection = pymysql.connect(**self.config)
+# with self.connection.cursor() as cursor:
+#     cursor.execute("abc%s", (kg_name,))
+#     kg_query_result = cursor.fetchall()
+    
 # 1104 Tue continue reviewing
     
     # Print results and total time
@@ -157,6 +170,71 @@ class PymysqlTest:
             self.connection.close()
             # print("Single task database connection closed\n")  # Too many prints in concurrent mode, can be commented out
 
-    # 1104 Key words:
-    # for i, kg_result in enumerate(kg_results, start=1):
-    # result_dict["total_time"] = round(time.time() - total_start_time, 3)
+# 1104 Key words:
+# for i, kg_result in enumerate(kg_results, start=1):
+# result_dict["total_time"] = round(time.time() - total_start_time, 3)
+
+# 1105 Wen continue reviewing
+
+# Multi_concurrency without "_", intra_class function with "_" for differentiation
+def concurrent_test(config, kg_name_list, max_workers=2):
+    logger.info(f"=== Multi-concurrency test started ===")
+    logger.info(f"Number of test kg_name：{len(kg_name_list)}")
+    logger.info(f"Maxinum concurrency：{max_workers}")
+    total_test_start_time = time.time()  # Total start time for multi-tasks, corresponding to total_start_time in _process_single_kge
+    # Memory aid: multi-thread concurrency function
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Create PymysqlTest instance for single task and submit to thread pool
+        futures = []
+        for kg_name in kg_name_list:
+            db_test = PymysqlTest(config)
+            future = executor.submit(db_test._process_single_kg, kg_name)
+            futures.append(future)
+        # Summary
+        test_results = []
+        for future in futures:
+            result = future.result()
+            test_results.append(result)
+    # Statistics (add new requirements here)
+    have_result_count = sum(1 for res in test_results if res["have_kg_result"])
+    no_result_count = len(test_results) - have_result_count
+    total_test_time = round(time.time() - total_test_start_time, 3)
+    success_count = sum(1 for res in test_results if res["success"])
+    fail_count = len(test_results) - success_count
+    avg_total_time = round(sum(res["total_time"] for res in test_results) / len(test_results), 3) if test_results else 0
+    logger.info(f"=== Multi-concurrency test completed  ===")
+    logger.info(f"Total time consumed：{total_test_time} seconds")
+    logger.info(f"Number of successful tasks: {success_count}, Number of failed tasks: {fail_count}")
+    logger.info(f"Number of tasks with kg query results: {have_result_count}, Number of tasks without kg query results: {no_result_count}")
+    logger.info(f"Average time consumed per task: {avg_total_time} seconds")
+
+
+if __name__ == "__main__":
+    # Database configuration
+    test_config = {
+        'host': '',  # Sorry, i need to protect password
+        'port': '',
+        'user': '',
+        'password': '',
+        'database': 'AGENT_FLOW',
+        'charset': 'utf8mb4',
+        'connect_timeout': 10  # Added connection timeout, built_in in pymysel
+    }
+    test_kg_names = [
+        'YES-2025',
+        "test-2025-11-04",
+        "LX-bug_test",
+        "Testkg1",  # Can add non-existent kg_name to test failure scenarios
+        "Testkg2"  # Test options:"YES-2025", "test-2025-11-04", "LX-bug_test"
+    ]
+    concurrent_test(
+        config = test_config,
+        kg_name_list=test_kg_names,
+        max_workers=2  # Process 2 kg_names simultaneously, can be changed to 3/4, etc.
+    )
+# For new requirements, add in result_dict of concurrent_test and PymysqlTest._process_single_kg
+# 1105 Wen Key words:
+# with ThreadPoolExecutor(max_workers=max_workers) as executor:
+#     future = executor.submit(db_test._process_single_kg, kg_name)
+# avg_total_time = round(sum(res["total_time"] for res in test_results) / len(test_results), 3) if test_results else 0
+# if __name__ == "__main__":
