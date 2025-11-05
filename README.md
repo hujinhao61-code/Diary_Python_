@@ -38,3 +38,20 @@ Key words:
     result_dict["total_time"] = round(time.time() - total_start_time, 3)
 
 Thanks for watching~
+
+2025 1105
+
+The "with as" is the most funny part last month in my coding learning, so that I memory it deepest whenever it comes.
+
+and so this is the last day to practice the Multi-auto-test script, thank for your watching.
+
+Key words:
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+		future = executor.submit(db_test._process_single_kg, kg_name)
+
+    avg_total_time = round(sum(res["total_time"] for res in test_results) / len(test_results), 3) if test_results else 0
+
+    if __name__ == "__main__":
+
+next code we will see, see you (^///^)
