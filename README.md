@@ -55,3 +55,11 @@ Key words:
     if __name__ == "__main__":
 
 next code we will see, see you (^///^)
+
+2025 1106
+
+Maybe, you find your D Drive full, like me. 
+
+I want a code can help list all directory I wanted to look at how big it is, rather than right-licking every dir to check its property. 
+
+So I designed it (^///^) practice1106_en.py
