@@ -40,4 +40,11 @@ for root, dirts, files in os.walk(source_dir):
         # This line is code for printing copy information, currently commented out
         # print(f"Copied: {file_full_path} -> {target_file_path}")
     # Print a prompt message after all files are processed
+
     print("All files have been classified and copied, and the original folder structure has benn preserved")
+
+# Key words:
+# for root, dirts, files in os.walk(source_dir):
+#     for filename in files:
+#         file_full_path = os.path.join(root, filename)
+#         relative_folder = os.path.relpath(root, source_dir)
