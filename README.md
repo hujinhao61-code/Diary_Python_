@@ -63,3 +63,9 @@ Maybe, you find your D Drive full, like me.
 I want a code can help list all directory I wanted to look at how big it is, rather than right-licking every dir to check its property. 
 
 So I designed it (^///^) practice1106_en.py
+
+2025 1107 practice1107_en.py
+
+In this simple terms, the code wil traverse all files in folder, copy and maintain the original folder structure.
+
+That code is so simple that i have the sensation that i did it ! (^///^) even though ai help me a lot, i can control the code and write it again afterwards by myself only.
