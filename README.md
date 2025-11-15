@@ -69,3 +69,17 @@ So I designed it (^///^) practice1106_en.py
 In this simple terms, the code wil traverse all files in folder, copy and maintain the original folder structure.
 
 That code is so simple that i have the sensation that i did it ! (^///^) even though ai help me a lot, i can control the code and write it again afterwards by myself only.
+
+2025 1115
+
+I stayed at home for a week and didn't go to the office, because I had a cold that is really uncomfortable. I was extremely sleepy. 
+
+Today is Saturdat. I promise a friend, who haven't use any python coding utility, to package the code "step06douyin.py" for downloading videos for him. 
+
+For the reason that some video websites have watermarks on the downloaded videos or they simply cannot be downloaded, I did this for douyin platform. 
+
+Of course, I also utilized the help of AI. I will learn it! Hope that the next time I can write it all by myself.
+
+Key words:
+
+(code about "os.path" for reviewign)
