@@ -1,7 +1,7 @@
 # Diary_Python_01
 Today, I wanna write my code in learning python, wwwwwwwww this is actualy beautiful language conding, i like it
 
-2025 1031
+2025 1031 Fri
 
 record my studying in Git, hoping someone find them and have a smile to my poor code
 
@@ -9,7 +9,7 @@ AI influence our coding a lot, I also ues them to help me to learn, which is a b
 
 Thanks for watching owo
 
-2025 1103
+2025 1103 Mon
 
 I'm back in the Monday, I've not upgrade my code in 1101 Saturday.
 
@@ -27,7 +27,7 @@ Key words:
     
 (I will add the "Key words" part for my memory in learning python, wwwwww)
 
-2025 1104
+2025 1104 Tues
 
 The code in 3rd day was definitely easiest part. Maybe tomorrow we can finish the test python.
 
@@ -39,7 +39,7 @@ Key words:
 
 Thanks for watching~
 
-2025 1105
+2025 1105 Wends
 
 The "with as" is the most funny part last month in my coding learning, so that I memory it deepest whenever it comes.
 
@@ -56,7 +56,7 @@ Key words:
 
 next code we will see, see you (^///^)
 
-2025 1106
+2025 1106 Thur
 
 Maybe, you find your D Drive full, like me. 
 
@@ -64,13 +64,13 @@ I want a code can help list all directory I wanted to look at how big it is, rat
 
 So I designed it (^///^) practice1106_en.py
 
-2025 1107 practice1107_en.py
+2025 1107 Fri practice1107_en.py
 
 In this simple terms, the code wil traverse all files in folder, copy and maintain the original folder structure.
 
 That code is so simple that i have the sensation that i did it ! (^///^) even though ai help me a lot, i can control the code and write it again afterwards by myself only.
 
-2025 1115
+2025 1115 Satur text_jinhao01.py
 
 I stayed at home for a week and didn't go to the office, because I had a cold that is really uncomfortable. I was extremely sleepy. 
 
