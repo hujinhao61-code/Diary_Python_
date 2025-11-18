@@ -83,3 +83,14 @@ Of course, I also utilized the help of AI. I will learn it! Hope that the next t
 Key words:
 
 (code about "os.path" for reviewign)
+
+2025 1118 Tues
+
+I used config.py to save all the variables as GLOBAL. So that could be easy to control what I want to change.
+
+Today is my brithday. And I learnt a lot in os library. But it's pity that company's code was to MinIO. So tomorrow I'd learn it to enrich my code.
+
+Key words:
+
+	None
+	
