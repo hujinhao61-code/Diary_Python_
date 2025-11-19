@@ -94,3 +94,15 @@ Key words:
 
 	None
 	
+2025 1119 Wed text_jinhao01_en.py test_jinhao_config_en.py
+
+Today I aim to master minIO library, so I did it ヾ(≧▽≦*)o
+
+Key words:
+
+	objects = minio_client.list_objects(bucket_name, prefix=test_folder, recursive=True)
+	
+	file_path = obj.object_name
+	file_ext = os.path.splitext(file_path)[1].lower()
+
+	stat = minio_client.stat_object(bucket_name, file_path)
