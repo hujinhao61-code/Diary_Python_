@@ -18,12 +18,21 @@ minIO library:
     minio.Minio(): Initialize MinIO client (requires endpoint, access_key, secret_key, etc.)
     list_objects(bucket_name, prefix, recursive): List objects (files) with specified prefix in the bucket
     stat_objects(bucket_name, object_name): Get object metadata (including file size, etc.)
+1121 Friday
+OCR accuracy comparison,
+Idea: Consider both the accuracy of text content and tolerate a certain degree of order difference
+Use two metrics:
+1. Bag-of-words similarity (tolerates order differences)
+2. Edit distance similarity (considers order)
+re library:
+    re.sub(pattern, replacement, string)
 """
 import time  # Required library
 import requests
 import os
 from minio import Minio
 from minio.error import S3Error
+import re
 # Import configuration file
 from test_jinhao_config_en import (
     GLOBAL_CONFIG, TEST_FILE_LIST, TEST_URL, HEADER,
@@ -153,6 +162,39 @@ def _get_test_files():
         return _auto_discover_test_files(AUTO_DISCOVER_FOLDER)
     else:
         return TEST_FILE_LIST
+
+
+# Text preprocessing: Unify format for easy comparison
+def preprocess_text(text):
+    # Convert full-width letters/numbers to half-width
+    result = []
+    for char in text:
+        code = ord(char)  # Get Unicode value of the character
+        if (0xFF10 <= code <= 0xFF19) or (0xFF21 <= code <= 0xFF3A) or (0xFF41 <= code <= 0xFF5A):
+            result.append(chr(code - 0xFEE0))  # ord and chr are inverse operations
+        elif code == 0x3000:  # Full-width space
+            result.append(' ')
+        else:
+            result.append(char)
+    text = ''.join(result)  # Concatenate with empty string (direct splicing)
+
+    # Special format: retain Chinese punctuation marks: ，。：；！？（）【】《》“”‘’%、¥
+    # (depends on the company's specific OCR capabilities)
+    text = re.sub(r'[~`!@#$^&*_\-+={}|\\;:"\'<>,.?/]', '', text)
+
+    # Convert Chinese numerals (e.g., "壹贰叁") to Arabic numerals
+    chinese_number = {
+        '壹': '1', '贰': '2', '叁': '3', '肆': '4', '伍': '5',
+        '陆': '6', '柒': '7', '捌': '8', '玖': '9', '拾': '十',
+        '佰': '百', '仟': '千', '萬': '万', '億': '亿'
+    }
+    for cn_num, digit in chinese_number.items():
+        text = text.replace(cn_num, digit)
+
+    # Merge multiple spaces into one
+    text = re.sub(r'\s+', ' ', text)  # \s+ → match "one or more consecutive whitespace characters"
+    text = text.strip()  # Remove all whitespace characters from the start and end of the string
+    return text
 
 
 if __name__ == "__main__":
