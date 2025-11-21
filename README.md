@@ -106,3 +106,17 @@ Key words:
 	file_ext = os.path.splitext(file_path)[1].lower()
 
 	stat = minio_client.stat_object(bucket_name, file_path)
+	
+2025 1121 Fri test_jinhao_01.py o(*^＠^*)o
+ 
+Yesterday, the fans of my laptop broke down. I couldn't do any coding at the company.
+
+Today, the text preprocessing module has been added. However, I am specifically targetting Chinese finance and banking. If you wanna use it, you will need to adjust it according to your own language.
+
+Keys word:
+
+	re.sub(pattern, replacement, string)
+
+	text = text.strip()
+
+	text = re.sub(r'\s+', ' ', text)
