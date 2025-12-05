@@ -120,3 +120,5 @@ Keys word:
 	text = text.strip()
 
 	text = re.sub(r'\s+', ' ', text)
+
+I'm back ~╰(*°▽°*)╯
