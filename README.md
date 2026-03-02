@@ -122,3 +122,17 @@ Keys word:
 	text = re.sub(r'\s+', ' ', text)
 
 I'm back ~╰(*°▽°*)╯
+
+2026 0302 Mon 0302async_homework.py
+
+Soooo long time not to wirte code, making my brain rotten, I'm baaaaack(●ˇ∀ˇ●)
+
+Keys word:
+
+	async def main():
+
+	async.run(main())
+
+	await asyncio.gather(a(), b())
+
+	await asyncio.sleep(1)  //That make sense? Try'na progress next time
